@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <!--动画总时常为1S-->
+    <Transition
+        app:duration="1000"
+        app:constraintSetStart="@id/start"
+        app:constraintSetEnd="@id/end">
+
+        <!--设置点击收藏按钮，直接结束动画-->
+        <OnClick
+            app:targetId="@+id/fab_favourite"
+            app:clickAction="jumpToEnd"/>
+
+        <!--1：设置跟踪手指运动的方向-->
+        <!--2：设置需要跟踪的对象-->
+        <!--3：设置跟踪手指的下侧-->
+        <OnSwipe
+            app:dragDirection="dragDown"
+            app:touchRegionId="@id/image_film_cover"
+            app:touchAnchorSide="bottom"
+            />
+
+        <!--帧动画设置-->
+        <KeyFrameSet>
+
+            <!--设置背景从50%位置开始变大-->
+            <KeyPosition app:motionTarget="@id/background"
+                app:framePosition="50"
+                app:percentHeight="0"
+                app:keyPositionType="deltaRelative"
+                app:percentY="0"/>
+
+            <!--属性关键帧 在50的位置，沿着X轴旋转30度-->
+            <KeyAttribute
+                app:framePosition="50"
+                app:motionTarget="@id/image_film_cover"
+                android:rotationX="30"
+                />
+
+            <!--位置关键帧 在动画完成度50%左右的时候, 位置移动到屏幕中间-->
+            <!--framePosition动画完成度也就是时间0-100何时启用-->
+            <!--keyPositionType：使用的坐标系，parentRelative(相对于父视图)、deltaRelative（相对距离）、pathRelative（相对于移动路径）-->
+            <!--percentX、percentY指的是位置百分比-->
+            <!--percentWidth、percentHeight指的是指定位置下的宽高百分比-->
+            <KeyPosition
+                app:framePosition="50"
+                app:motionTarget="@id/image_film_cover"
+                app:keyPositionType="parentRelative"
+                app:percentX="0.5"
+                app:percentY="0.5"
+                app:percentWidth="0"
+                app:percentHeight="0"
+                />
+
+            <!--移动过程中水波纹动画-->
+            <KeyCycle
+                android:rotation="0"
+                app:motionTarget="@id/fab_favourite"
+                app:wavePeriod="0"
+                app:framePosition="0"
+                app:waveShape="sin"/>
+
+            <KeyCycle
+                android:rotation="180"
+                app:motionTarget="@id/fab_favourite"
+                app:wavePeriod="1"
+                app:framePosition="50"
+                app:waveShape="sin"/>
+
+            <KeyCycle
+                android:rotation="0"
+                app:motionTarget="@id/fab_favourite"
+                app:wavePeriod="0"
+                app:framePosition="100"
+                app:waveShape="sin"/>
+
+
+        </KeyFrameSet>
+    </Transition>
+
+    <!--开始布局-->
+    <ConstraintSet android:id="@+id/start">
+
+        <!--喜欢按钮-->
+        <!--pathMotionArc属性是设置动画的曲线移动方向，这里设置一个垂直方向曲线-->
+        <Constraint
+            android:id="@+id/fab_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="@id/background"
+            app:layout_constraintEnd_toEndOf="@id/background"
+            app:layout_constraintBottom_toBottomOf="@id/background"
+            app:layout_constraintTop_toBottomOf="@id/background"
+            app:pathMotionArc="startVertical"
+            app:fabSize="mini"
+            />
+
+    </ConstraintSet>
+
+    <!--结束布局-->
+    <ConstraintSet android:id="@+id/end">
+
+        <!--设置结束布局UI 1：电影封面图全屏效果 2：收藏按钮右下角效果 3：背景全屏效果-->
+        <Constraint
+            android:id="@+id/image_film_cover"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Constraint
+            android:id="@+id/fab_favourite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:fabSize="mini"
+            />
+
+        <Constraint
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </ConstraintSet>
+</MotionScene>
