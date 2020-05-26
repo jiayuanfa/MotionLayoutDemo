@@ -12,7 +12,7 @@ class TextMotionActivity: AppCompatActivity() {
         setContentView(R.layout.activity_text_motion)
 
         // 显示DEBUG路径
-        motionLayout.setDebugMode(DEBUG_SHOW_PATH)
+//        motionLayout.setDebugMode(DEBUG_SHOW_PATH)
 
     }
 }
