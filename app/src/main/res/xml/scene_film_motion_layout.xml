@@ -21,6 +21,7 @@
             app:dragDirection="dragDown"
             app:touchRegionId="@id/image_film_cover"
             app:touchAnchorSide="bottom"
+            app:onTouchUp="autoComplete"
             />
 
         <!--帧动画设置-->

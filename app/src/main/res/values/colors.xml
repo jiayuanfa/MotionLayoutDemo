@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="textColor">#CCCCCC</color>
     <color name="colorBookMark">#FFD600</color>
 
 </resources>
